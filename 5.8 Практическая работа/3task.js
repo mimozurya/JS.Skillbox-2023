@@ -13,4 +13,5 @@ function arrSort (array) { // [2,5,1,3,4]
 };
 
 let newArray = [12,33,3,44,100];
-console.log(arrSort(newArray));
+console.log(arrSort(newArray), '- через функцию');
+console.log(newArray.sort((a,b) => a - b), '- через sort');

@@ -1,21 +1,19 @@
 function getOlderUserArray (allUsers) {
-    let indexAge = -1; // с ним сравнивать
-    let indexName = ''; // сюда будем записывать имя
+    let sortedByAge = [];
     for (let i = 0; i < allUsers.length; i++) {
-        if (allUsers[i].age > indexAge) {
-            indexAge = allUsers[i].age;
-            indexName = allUsers[i].name;
-        }
+        sortedByAge.push(allUsers[i].age);
     }
-    return indexName;
+    sortedByAge.sort((a,b) => b-a);
+    let oldestUser = allUsers.find(user => user.age === sortedByAge[0]);
+    return oldestUser.name;
 };
 
 let allUsers=[
     {name: 'Валя', age: 11},
-    { name: 'Таня',age: 24},
+    {name: 'Таня',age: 24},
     {name: 'Рома',age: 21},
     {name: 'Надя', age: 34},
     {name: 'Антон', age: 7}
-]
+];
 
-console.log(getOlderUserArray(allUsers))
+console.log(getOlderUserArray(allUsers));

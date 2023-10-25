@@ -1,13 +1,11 @@
-function filter (objects, keys, value) {
-    let newObjects = [];
-    for (let i = 0; i < objects.length; i++) {
-        for (let j = 0; j < Object.keys(objects).length; j++) {
-            if ((Object.keys(objects[i])[j] === keys) && (Object.values(objects[i])[j] === value)) {
-                newObjects.push(objects[i]);
-            }
+function filter (objects, key, value) {
+    let filterArray = [];
+    for (let humanIndex in objects) {
+        if (objects[humanIndex][key] === value) {
+            filterArray.push(objects[humanIndex]);
         }
     }
-    return newObjects;
+    return filterArray;
 }
 
 let objects = [
@@ -16,8 +14,9 @@ let objects = [
     { name: 'Пётр', surname: 'Петров' }
 ];
 
-let result = filter(objects, 'name', 'Иван');
-console.log(result);
+let result = filter(objects, 'name', 'Иван')
+console.log(filter(result));
+
 
 // [
 //     { name: 'Иван', surname: 'Иванов' }

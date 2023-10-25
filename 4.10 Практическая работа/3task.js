@@ -18,10 +18,11 @@ console.log('Перемешанный массив', array);
 // новое задание
 
 let n = 1;
+console.log(`индекс элемента "${n}" -`, array.indexOf(n, array));
 
-for (let i = 0; i < array.length; i++) {
-    if (array[i] === n) {
-        console.log('индекс элемента =', i);
-        break;
-    } else continue;
-}
+// for (let i = 0; i < array.length; i++) {
+//     if (array[i] === n) {
+//         console.log('индекс элемента =', i);
+//         break;
+//     } else continue;
+// }
