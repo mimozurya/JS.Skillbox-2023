@@ -64,16 +64,32 @@
         };
     }
 
-    function createTodoApp (container, title = 'Список дел') {
+    function createTodoApp (container, title = 'Список дел', listName) {
         let todoAppTitle = createAppTitle(title); // заголовок
         let todoItemForm = createTodoItemForm(); // форма заполнения
         let todoList = createTodoList(); // создание листа задач
-        let todoArray = []; 
+        let todoArray = getDataFromLocalStorage(listName) || [];
+        createTodoApp.todoArray = todoArray;
+
+        if (todoArray.length > 0) {
+            todoArray.forEach((item) => {
+                let todoItem = createTodoItem(item);
+                todoList.append(todoItem.item);
+            });
+        }
 
         container.append(todoAppTitle);
         container.append(todoItemForm.form);
         container.append(todoList);
-        createTodoApp.todoArray = todoArray;
+
+        function idForElement () {
+            if (todoArray.length === 0) {
+                return 1;
+            }
+            else {
+                return todoArray[todoArray.length - 1].id + 1;
+            }
+        };
 
         todoItemForm.form.addEventListener("input", function() { // манипуляции с кнопкой
             if (!todoItemForm.input.value) {
@@ -90,22 +106,15 @@
                 return;
             }
 
-            function idForElement () {
-                if (todoArray.length === 0) {
-                    return 1;
-                }
-                else {
-                    return todoArray[todoArray.length - 1].id + 1;
-                }
-            };
-
             let todoElement = {
                 id: idForElement(),
                 name: todoItemForm.input.value,
                 done: false,
             };
+
             let todoItem = createTodoItem(todoElement); // создание li
             todoArray.push(todoElement);
+            saveDataToLocalStorage(listName, todoArray);
 
             todoItem.doneButton.addEventListener('click', function() {
                 todoItem.item.classList.toggle('list-group-item-success');
@@ -114,6 +123,7 @@
                 } else {
                     todoElement.done = false;
                 }
+                saveDataToLocalStorage(listName, todoArray);
             }); // по клику на "Готово" меняется класс
 
             todoItem.deleteButton.addEventListener('click', function () {
@@ -121,6 +131,7 @@
                     let index = todoArray.findIndex((elem) => elem.id === todoElement.id);
                     todoArray.splice(index, 1);
                     todoItem.item.remove();
+                    saveDataToLocalStorage(listName, todoArray)
                 }
             }); // по клику спрашивают и удаляют
 
@@ -128,6 +139,37 @@
             todoItemForm.input.value = ''; // изменение в изначальное положение
             todoItemForm.button.setAttribute('disabled', 'disabled'); // изменение кнопки в изначальное положение
         }) 
+    }
+
+    function dataToJson(data) { // вернет входящиее данные в виде строки
+        return JSON.stringify(data);
+    };
+
+    function jsonToData(data) { // вернет входящую строку в виде данных
+        return JSON.parse(data);
+    };
+
+    function getData (listName) { // вернет данные из LocalStorage
+        return localStorage.getItem(listName);
+    };
+
+    function setData (listName, data) { // запишет данные в LocalStorage
+        return localStorage.setItem(listName, data);
+    };
+
+    function saveDataToLocalStorage (key, data) {
+        const jsonData = dataToJson(data);
+        setData(key, jsonData);
+    }
+
+    function getDataFromLocalStorage(key) {
+        function getCartData () {
+            let cartData = localStorage.getItem(key);
+            return cartData;
+        }
+
+        let result = getCartData();
+        return jsonToData(result);
     }
 
     window.createTodoApp = createTodoApp; // ???
