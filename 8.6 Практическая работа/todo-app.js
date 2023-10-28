@@ -37,7 +37,7 @@
         return list;
     }
 
-    function createTodoItem (element) { // создание блока задачи
+    function createTodoItem (todoElement, todoArray, keyLocalStorage) { // создание блока задачи
         let item = document.createElement('li');
 
         let buttonGroup = document.createElement('div');
@@ -45,7 +45,7 @@
         let deleteButton = document.createElement('button');
 
         item.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
-        item.textContent = element.name;
+        item.textContent = todoElement.name;
 
         buttonGroup.classList.add('btn-group', 'btn-group-sm');
         doneButton.classList.add('btn', 'btn-success');
@@ -57,6 +57,29 @@
         buttonGroup.append(deleteButton);
         item.append(buttonGroup);
 
+        if (todoElement.done) { // если true у done
+            item.classList.add('list-group-item-success');
+        }
+
+        doneButton.addEventListener('click', function() {
+            item.classList.toggle('list-group-item-success')
+            if (item.classList.contains('list-group-item-success')) {
+                todoElement.done = true;
+            } else {
+                todoElement.done = false;
+            }
+            saveDataToLocalStorage(keyLocalStorage, todoArray);
+        });
+
+        deleteButton.addEventListener('click', function () {
+            if (confirm('Вы уверены?')) {
+                let index = todoArray.findIndex((elem) => elem.id === todoElement.id);
+                todoArray.splice(index, 1);
+                item.remove();
+                saveDataToLocalStorage(keyLocalStorage, todoArray)
+            }
+        });
+
         return {
             item,
             doneButton,
@@ -65,15 +88,15 @@
     }
 
     function createTodoApp (container, title = 'Список дел', listName) {
+        let todoArray = getDataFromLocalStorage(listName) || [];
         let todoAppTitle = createAppTitle(title); // заголовок
         let todoItemForm = createTodoItemForm(); // форма заполнения
         let todoList = createTodoList(); // создание листа задач
-        let todoArray = getDataFromLocalStorage(listName) || [];
         createTodoApp.todoArray = todoArray;
 
-        if (todoArray.length > 0) {
+        if (todoArray.length > 0) { // добавление элементов из LocalStorage
             todoArray.forEach((item) => {
-                let todoItem = createTodoItem(item);
+                let todoItem = createTodoItem(item, todoArray, listName);
                 todoList.append(todoItem.item);
             });
         }
@@ -82,13 +105,9 @@
         container.append(todoItemForm.form);
         container.append(todoList);
 
-        function idForElement () {
-            if (todoArray.length === 0) {
-                return 1;
-            }
-            else {
-                return todoArray[todoArray.length - 1].id + 1;
-            }
+        function idForElement () { // генератор id
+            if (todoArray.length === 0) return 1;
+            else return todoArray[todoArray.length - 1].id + 1;
         };
 
         todoItemForm.form.addEventListener("input", function() { // манипуляции с кнопкой
@@ -112,28 +131,9 @@
                 done: false,
             };
 
-            let todoItem = createTodoItem(todoElement); // создание li
             todoArray.push(todoElement);
+            let todoItem = createTodoItem(todoElement, todoArray, listName); // создание li
             saveDataToLocalStorage(listName, todoArray);
-
-            todoItem.doneButton.addEventListener('click', function() {
-                todoItem.item.classList.toggle('list-group-item-success');
-                if (todoItem.item.classList.contains('list-group-item-success')) {
-                    todoElement.done = true;
-                } else {
-                    todoElement.done = false;
-                }
-                saveDataToLocalStorage(listName, todoArray);
-            }); // по клику на "Готово" меняется класс
-
-            todoItem.deleteButton.addEventListener('click', function () {
-                if (confirm('Вы уверены?')) {
-                    let index = todoArray.findIndex((elem) => elem.id === todoElement.id);
-                    todoArray.splice(index, 1);
-                    todoItem.item.remove();
-                    saveDataToLocalStorage(listName, todoArray)
-                }
-            }); // по клику спрашивают и удаляют
 
             todoList.append(todoItem.item); // добавление li в общий список
             todoItemForm.input.value = ''; // изменение в изначальное положение
@@ -167,7 +167,6 @@
             let cartData = localStorage.getItem(key);
             return cartData;
         }
-
         let result = getCartData();
         return jsonToData(result);
     }
