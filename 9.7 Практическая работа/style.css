@@ -1,0 +1,32 @@
+.container {
+    margin: 50px 0 0 150px;
+    border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+    width: 410px;
+}
+
+.tile {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+    font-size: 90px;
+    text-align: center;
+    background-color: rgb(255, 251, 0);
+    color: black;
+}
+
+.close {
+    background-color: red;
+    /* color: red; */
+}
+
+.open {
+    background-color: green;
+    /* color: black; */
+}
+
+
