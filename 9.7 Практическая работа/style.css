@@ -1,5 +1,5 @@
 .container {
-    margin: 150px 0 0 150px;
+    margin: 30px 0 0 150px;
     display: flex;
     flex-wrap: wrap;
     width: 420px;
@@ -24,17 +24,22 @@
 
 .close {
     background-color: red;
-    color: red;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .close:hover {
     background-color: rgb(255, 120, 0);
-    color: rgb(255, 120, 0);
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .open {
     background-color: green;
     color: black;
+    pointer-events:none;
 }
 
 .open:hover {
@@ -56,6 +61,30 @@
 
 .btn:hover {
     background-color: rgb(255, 210, 0);
+}
+
+.form {
+    border: 3px solid red;
+    border-radius: 7%;
+    width: 400px;
+    text-align: center;
+    margin: 20px 0 0 153px;
+}
+
+.form p {
+    font-size: 20px;
+}
+
+span {
+    color: red;
+}
+
+.input {
+    margin-bottom: 10px;
+    height: 30px;
+    width: 250px;
+    font-size: 20px;
+    text-align: center;
 }
 
 

@@ -7,13 +7,13 @@
     <link href="style.css" rel="stylesheet">
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            startGame(document.getElementById('signs'), 8);
+            startGame(document.getElementById('signs'), createNumbers());
         });
     </script>
 </head>
 <body>
     <form class="form" id="form">
-        
+        <p class="text">Введите <span>чётное</span> значение от <span>2</span> до <span>10</span></p>
     </form>
     <div class="container" id="signs">
 
