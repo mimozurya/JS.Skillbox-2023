@@ -14,14 +14,6 @@
         return arr;
     }
 
-    function sleep (milliseconds) {
-        const date = Date.now();
-        let currentDate = null;
-        do {
-            currentDate = Date.now();
-        } while (currentDate - date < milliseconds);
-    }
-
     function startGame (container, count) {
         let tilesArray = createNumbersArray(count);
         tilesArray = shuffle(tilesArray);
@@ -31,14 +23,15 @@
             tile.classList.add('tile', 'close');
             container.append(tile);
         }
-        Game();
+        Game(count);
     }
 
-    function Game () {
+    function Game (count) {
         tiles = document.getElementsByClassName('tile');
         let index = 0;
         let tempVariable = 0;
         let restart = true;
+        let counter = 0;
         
         while (restart) {
             for (let i = 0; i < tiles.length; i++) {
@@ -47,29 +40,46 @@
                         tiles[i].classList.remove('close');
                         tempVariable = tiles[i];
                         index++;
-                        console.log('индекс +1');
-                        return;
                     } else {
-                        if (index !== 0) {
+                        if (index !== 0 && index !== -1 && tiles[i] !== tempVariable) {
                             tiles[i].classList.remove('close');
                             if (tiles[i].innerHTML === tempVariable.innerHTML) {
+                                index = 0;
                                 tiles[i].classList.add('open');
                                 tempVariable.classList.add('open');
-                                index = 0;
+                                counter += 2;
+                                if (counter === count*2) {
+                                    repeatGame();
+                                }
                             } else {
-                                index = 0
+                                index = -1; // чтобы не кликали на другие кнопки пока можно посмотреть на две выбранные
                                 tiles[i].classList.remove('close');
-                                sleep(1000);
-                                tiles[i].classList.add('close');
-                                tempVariable.classList.add('close');
-                                tempVariable = 0;
+                                tempVariable.classList.remove('close');
+                                setTimeout (() => {
+                                    tiles[i].classList.add('close'),
+                                    tempVariable.classList.add('close');
+                                    index = 0;
+                                    },
+                                    800
+                                );
                             }
                         }
                     }
                 });
             }
+            
         restart = false;
-        console.log('конец');
+        }
+    }
+
+    function repeatGame() {
+        let button = document.createElement('button');
+        button.textContent = 'Сыграть еще раз';
+        button.classList.add('btn');
+        document.body.append(button);
+
+        button.onclick = function () {
+            window.location.reload();
         }
     }
 
