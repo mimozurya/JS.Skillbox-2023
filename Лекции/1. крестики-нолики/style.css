@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.4), transparent 1px);
+    background-size: 30px 30px;
+    row-gap: 20px;
+}
+
+.res {
+    color: green;
+    font-weight: bold;
+    font-size: 40px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.game {
+    width: 360px;
+    height: 360px;
+    display: flex;
+    flex-wrap: wrap;
+    outline: 2px solid #000;
+}
+
+.field {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #000;
+    cursor: pointer;
+}
+
+.field.active {
+    background: rgba(0, 255, 0, 0.5);
+}
+
+.new-game {
+    border: none;
+    color: #fff;
+    background: green;
+    padding: 10px 16px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.circle {
+    width: 100;
+    height: 100;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 283;
+    animation: draw 0.6s forwards;
+}
+
+.first, .second {
+    stroke-dasharray: 128;
+    stroke-dashoffset: 128;
+}
+
+.first {
+    animation: draw 0.6s forwards;
+}
+
+.second {
+    animation: draw 0.6s 0.6s forwards;
+}
+
+@keyframes draw {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
