@@ -21,16 +21,23 @@ stroke="red" stroke-width="10"
 stroke-linecap="round"></line>
 </svg>`
 
+game.addEventListener('click', init);
+btnGame.addEventListener('click', newGame);
+
 function doStep(target) {
     target.innerHTML = stepCross ? cross: circle
     target.classList.add(stepCross ? 'x' : 'o');
 }
 
 function init (e) {
-    doStep(e.target);
-    stepCross = !stepCross;
-    count++;
-    // win();
+    const curField = e.target.closest('.field');
+    if (!curField.classList.contains("x", "o")) {
+        console.log('here');
+        doStep(e.target);
+        stepCross = !stepCross;
+        count++;
+        win();
+    }
 };
 
 function newGame () {
@@ -39,14 +46,12 @@ function newGame () {
     count = 0;
     Array.from(fields).forEach(el => {
         el.innerHTML = '';
-        el.classList.remove('x', 'o');
-        //
+        el.classList.remove('x', 'o', 'active');
     });
+    game.addEventListener ('click', init);
 }
 
 function win () {
-    let result = '';
-
     const comb = [
         [0,1,2],
         [3,4,5],
@@ -63,11 +68,25 @@ function win () {
         const curFields = [
             fields[cur[0]],
             fields[cur[1]],
-            fields[cur[2]] // 1:07:18
+            fields[cur[2]]
         ];
 
         if (curFields.every(el => el.classList.contains('x'))) {
-            result = 'Выиграли X';
+            res.innerHTML= 'Выиграли X';
+            curFields.forEach(field => field.classList.add('active'));
+            game.removeEventListener('click', init);
+            break;
+        } 
+        if (curFields.every(el => el.classList.contains('o'))) {
+            res.innerHTML = 'Выиграли O';
+            curFields.forEach(field => field.classList.add('active'));
+            game.removeEventListener('click', init);
+            break;
+        } 
+        if (count === 9) {
+            res.innerHTML = 'Ничья';
+            game.removeEventListener('click', init);
+            break;
         }
     }
 }
