@@ -33,4 +33,10 @@
     canAccept (newTile) {
         return this.isEmpty() || (!this.linkTileForMerge && this.linkedTile.value === newTile.value);
     }
+
+    mergeTiles() {
+        this.linkedTile.setValue(this.linkedTile.value + this.linkedTileForMerge.value);
+        this.linkedTileForMerge.tileElement.remove();
+        this.linkedTileForMerge = null;
+    }
 }

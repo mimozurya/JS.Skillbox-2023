@@ -11,6 +11,9 @@ export class Grid {
         }
 
         this.groupedCellsByColumn = this.groupCellsByColumn();
+        this.groupedCellsByReversedColumn = this.groupedCellsByColumn.map(column => [...column].reverse());
+        this.groupedCellsByRow = this.groupCellsByRow = this.groupCellsByRow();
+        this.groupedCellsByReversedRow = this.groupedCellsByRow.map(row => [...row].reverse());
     }
     getRandomEmptyCell() {
         const emptyCells = this.cells.filter(cell => cell.isEmpty());
@@ -23,6 +26,14 @@ export class Grid {
         return this.cells.reduce((groupedCells, cell) => {
             groupedCells[cell.x] = groupedCells[cell.x] || [];
             groupedCells[cell.x][cell.y] = cell;
+            return groupedCells;
+        }, []);
+    }
+
+    groupCellsByRow() {
+        return this.cells.reduce((groupedCells, cell) => {
+            groupedCells[cell.y] = groupedCells[cell.y] || [];
+            groupedCells[cell.y][cell.x] = cell;
             return groupedCells;
         }, []);
     }
