@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>Список студентов</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            getStudentsFromDB(), renderStudentsTable(studentsList), sendingForm();
+        });
+    </script>
+</head>
+
+<body>
+
+    <form class="filter-form" id="filter-form">
+        <input type="text" id="inp-fio" class="filter-form-item" placeholder="ФИО">
+        <input type="number" id="inp-year-study" class="filter-form-item" placeholder="Год обучения">
+        <button type="submit" class="filter-form-item">Фильтровать</button>
+    </form>
+
+    <div class="sort-list">
+        <button class="sort-list-item sort-FullName" id="sort-FullName">ФИО</button>
+        <button class="sort-list-item sort-Faculty" id="sort-Faculty">Фалькутет</button>
+        <button class="sort-list-item sort-Date" id="sort-Date">Дата рождения и возраст</button>
+        <button class="sort-list-item sort-YearStudy" id="sort-YearStudy">Годы обучения</button>
+    </div>
+
+    <table class="table">
+
+    </table>
+</body>
+<script src="main.js"></script>
+</html>

@@ -1,0 +1,47 @@
+.sort-list {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    margin-top: 50px;
+}
+
+.sort-list-item {
+    width: 200px;
+    height: 50px;
+    margin-right: 55px;
+}
+
+.sort-list-item:first-child {
+    margin-left: 30px;
+}
+
+th {
+    width: 260px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+.form-sending {
+    margin: 20px;
+}
+
+.form-sending-item {
+    width: 150px;
+    height: 20px;
+}
+
+.filter-form {
+    margin: 20px;
+}
+
+.filter-form-item {
+    width: 150px;
+    height: 20px;
+}
+
+.delete-student {
+    width: 80px;
+    height: 40px;
+    color: red;
+    cursor: pointer;
+}

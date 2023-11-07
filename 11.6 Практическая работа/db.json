@@ -1,0 +1,130 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Сергей",
+      "surname": "Сидоренко",
+      "middleName": "Валерьевич",
+      "date": "03.08.1976",
+      "yearStudy": "1992",
+      "faculty": "Технарь"
+    },
+    {
+      "id": 2,
+      "name": "Иван",
+      "surname": "Болонкин",
+      "middleName": "Ринатович",
+      "date": "24.04.2002",
+      "yearStudy": "2020",
+      "faculty": "Химфак"
+    },
+    {
+      "id": 3,
+      "name": "Никита",
+      "surname": "Алексеев",
+      "middleName": "Русланович",
+      "date": "13.09.2004",
+      "yearStudy": "2021",
+      "faculty": "Матфак"
+    },
+    {
+      "id": 4,
+      "name": "Роман",
+      "surname": "Меслер",
+      "middleName": "Александрович",
+      "date": "18.04.1997",
+      "yearStudy": "2022",
+      "faculty": "Бигмак"
+    },
+    {
+      "id": 5,
+      "name": "Андрей",
+      "surname": "Волков",
+      "middleName": "Анатольевич",
+      "date": "20.01.1980",
+      "yearStudy": "2016",
+      "faculty": "Матмех"
+    },
+    {
+      "id": 6,
+      "name": "Анастасия",
+      "surname": "Пинягина",
+      "middleName": "Александровна",
+      "date": "01.05.2005",
+      "yearStudy": "2023",
+      "faculty": "Физтех"
+    },
+    {
+      "id": 8,
+      "name": "Матвей",
+      "surname": "Свидер",
+      "middleName": "Пуськович",
+      "date": "11.11.2001",
+      "yearStudy": "2021",
+      "faculty": "Радиофак"
+    },
+    {
+      "id": 9,
+      "name": "Олег",
+      "surname": "Бубылдов",
+      "middleName": "Ракирович",
+      "date": "04.12.1998",
+      "yearStudy": "2014",
+      "faculty": "Физтех"
+    },
+    {
+      "id": 10,
+      "name": "Ибрагим",
+      "surname": "Иерусалимов",
+      "middleName": "Аллахович",
+      "date": "09.01.2001",
+      "yearStudy": "2018",
+      "faculty": "Бигмак"
+    },
+    {
+      "id": 11,
+      "name": "Артур",
+      "surname": "Мозер",
+      "middleName": "Яковлевич",
+      "date": "09.05.2004",
+      "yearStudy": "2022",
+      "faculty": "Радиофак"
+    },
+    {
+      "id": 12,
+      "name": "Дарья",
+      "surname": "Загокскина",
+      "middleName": "Сергеевна",
+      "date": "02.10.2006",
+      "yearStudy": "2022",
+      "faculty": "Горничный"
+    },
+    {
+      "id": 13,
+      "name": "Кирилл",
+      "surname": "Матвеев",
+      "middleName": "Михайлович",
+      "date": "25.03.2005",
+      "yearStudy": "2023",
+      "faculty": "Физтех"
+    },
+    {
+      "id": 14,
+      "name": "Илья",
+      "surname": "Обабков",
+      "middleName": "Николаевич",
+      "date": "14.07.1979",
+      "yearStudy": "1997",
+      "faculty": "Радиофак"
+    },
+    {
+      "id": 15,
+      "name": "Андрей",
+      "surname": "Корчемкин",
+      "middleName": "Сергеевич",
+      "date": "01.02.2004",
+      "yearStudy": "2022",
+      "faculty": "Писькостроя"
+    }
+  ]
+}
