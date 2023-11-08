@@ -62,12 +62,8 @@
         }
 
         doneButton.addEventListener('click', function() {
-            item.classList.toggle('list-group-item-success')
-            if (item.classList.contains('list-group-item-success')) {
-                todoElement.done = true;
-            } else {
-                todoElement.done = false;
-            }
+            item.classList.toggle('list-group-item-success');
+            todoElement.done = item.classList.contains('list-group-item-success');
             saveDataToLocalStorage(keyLocalStorage, todoArray);
         });
 
@@ -94,7 +90,7 @@
         let todoList = createTodoList(); // создание листа задач
         createTodoApp.todoArray = todoArray;
 
-        if (todoArray.length > 0) { // добавление элементов из LocalStorage
+        if (todoArray.length) { // добавление элементов из LocalStorage
             todoArray.forEach((item) => {
                 let todoItem = createTodoItem(item, todoArray, listName);
                 todoList.append(todoItem.item);
@@ -106,7 +102,7 @@
         container.append(todoList);
 
         function idForElement () { // генератор id
-            if (todoArray.length === 0) return 1;
+            if (!todoArray.length) return 1;
             else return todoArray[todoArray.length - 1].id + 1;
         };
 

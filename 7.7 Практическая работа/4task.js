@@ -8,21 +8,21 @@ button.onclick = function () {
     createStudentsList(allStudents);
 }
 
-function createStudentsList(listArr) {
+function createStudentsList (listArr) {
     let ul = document.createElement('ul');
     body.append(ul);
-    for (let i = 0; i < listArr.length; i++) {
+    listArr.forEach((elem) => {
         let li = document.createElement('li');
         ul.append(li);
 
         let h2 = document.createElement('h2');
-        h2.textContent = listArr[i].name;
+        h2.textContent = elem.name;
         li.append(h2);
 
         let span = document.createElement('span');
-        span.textContent = listArr[i].age;
+        span.textContent = elem.age;
         li.append(span);
-    }
+    });
 }
 
 let allStudents=[

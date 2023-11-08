@@ -1,12 +1,12 @@
 (() => {
     const studentsList = [
-        {name: 'Сергей', surname: 'Сидоренко', middleName: 'Валерьевич', date: '03.08.1976', yearStudy: '1992', faculty: 'Технарь'},
-        {name: 'Иван', surname: 'Болонкин', middleName: 'Ринатович', date: '24.04.2002', yearStudy: '2020', faculty: 'Химфак'},
-        {name: 'Никита', surname: 'Алексеев', middleName: 'Русланович', date: '13.09.2004', yearStudy: '2021', faculty: 'Матфак'},
-        {name: 'Роман', surname: 'Меслер', middleName: 'Александрович', date: '18.04.1997', yearStudy: '2022', faculty: 'Медфак'},
-        {name: 'Андрей', surname: 'Волков', middleName: 'Анатольевич', date: '20.01.1980', yearStudy: '2016', faculty: 'Матмех'},
-        {name: 'Анастасия', surname: 'Пинягина', middleName: 'Александровна', date: '01.05.2005', yearStudy: '2023', faculty: 'Физтех'},
-        {name: 'Бубылда', surname: 'Обэмэ', middleName: 'Кунлус', date: '16.07.2001', yearStudy: '2017', faculty: 'Меж.отнош.'},
+        { name: 'Сергей', surname: 'Сидоренко', middleName: 'Валерьевич', date: '03.08.1976', yearStudy: '1992', faculty: 'Технарь' },
+        { name: 'Иван', surname: 'Болонкин', middleName: 'Ринатович', date: '24.04.2002', yearStudy: '2020', faculty: 'Химфак' },
+        { name: 'Никита', surname: 'Алексеев', middleName: 'Русланович', date: '13.09.2004', yearStudy: '2021', faculty: 'Матфак' },
+        { name: 'Роман', surname: 'Меслер', middleName: 'Александрович', date: '18.04.1997', yearStudy: '2022', faculty: 'Медфак' },
+        { name: 'Андрей', surname: 'Волков', middleName: 'Анатольевич', date: '20.01.1980', yearStudy: '2016', faculty: 'Матмех' },
+        { name: 'Анастасия', surname: 'Пинягина', middleName: 'Александровна', date: '01.05.2005', yearStudy: '2023', faculty: 'Физтех' },
+        { name: 'Бубылда', surname: 'Обэмэ', middleName: 'Кунлус', date: '16.07.2001', yearStudy: '2017', faculty: 'Меж.отнош.' },
     ]
 
     function getStudentItem(studentObj) { // создание строки студента
@@ -41,11 +41,11 @@
         for (let student of studentsArray) {
             table.append(getStudentItem(student));
         }
-        sortStudents ();
+        sortStudents();
         filterStudent();
     }
 
-    function sortStudents () { // сортировка на кнопки
+    function sortStudents() { // сортировка на кнопки
         let sortByFullName = document.getElementById('sort-FullName');
         let sortByFaculty = document.getElementById('sort-Faculty');
         let sortByDate = document.getElementById('sort-Date');
@@ -70,15 +70,15 @@
         });
     };
 
-    function sortArrayByProp (array, prop, dir) { // метод сортировки
-        let result = array.sort(function(a,b) {
+    function sortArrayByProp(array, prop, dir) { // метод сортировки
+        let result = array.sort(function (a, b) {
             let dirIf = dir == false ? a[prop] < b[prop] : a[prop] > b[prop]
             if (dirIf == true) return -1;
         });
         return result;
     }
 
-    function filter (array, prop, value) { // метод фильтра
+    function filter(array, prop, value) { // метод фильтра
         let result = [],
             copy = [...array];
         for (const item of copy) {
@@ -87,7 +87,7 @@
         return result;
     }
 
-    function renderStudents (array) { // рендер фильтра
+    function renderStudents(array) { // рендер фильтра
         const table = document.querySelector('.table');
         table.innerHTML = '';
 
@@ -95,8 +95,8 @@
             yearVal = document.getElementById('inp-year-study').value
 
         let newArray = [...array];
-        if (fioVal !== '') newArray = filter (newArray, 'surname', fioVal);
-        if (yearVal !== '') newArray = filter (newArray, 'yearStudy', yearVal);
+        if (fioVal !== '') newArray = filter(newArray, 'surname', fioVal);
+        if (yearVal !== '') newArray = filter(newArray, 'yearStudy', yearVal);
 
         for (const user of newArray) {
             const tr = getStudentItem(user);
@@ -104,7 +104,7 @@
         }
     }
 
-    function filterStudent () { // фильтр
+    function filterStudent() { // фильтр
         let filterForm = document.getElementById('filter-form');
         filterForm.onsubmit = function (e) {
             e.preventDefault();
@@ -112,7 +112,7 @@
         };
     }
 
-    function createSendingForm () { // создание формы для заполнения информации о студенте
+    function createSendingForm() { // создание формы для заполнения информации о студенте
         let form = document.createElement('form');
         let inputName = document.createElement('input');
         let inputSurname = document.createElement('input');
@@ -153,7 +153,7 @@
         };
     }
 
-    function sendingForm () { // логика создания формы
+    function sendingForm() { // логика создания формы
         let newForm = createSendingForm();
         let currentYear = new Date().getFullYear();
 
@@ -162,14 +162,18 @@
         newForm.button.addEventListener('click', function (e) {
             e.preventDefault();
 
-            if (
-                newForm.inputName.value && !Number(newForm.inputName.value) &&
-                newForm.inputSurname.value && !Number(newForm.inputSurname.value) &&
-                newForm.inputMiddleName.value && !Number(newForm.inputMiddleName.value) &&
-                newForm.inputDate.valueAsDate &&
-                newForm.inputYearStudy.value && Number(newForm.inputYearStudy.value) &&
-                newForm.inputFaculty.value && !Number(newForm.inputFaculty.value)
-            ) {
+            const { form, button, ...other } = newForm;
+            const dictionary = {
+                inputName: { badValue: 'Введите имя', valid: (value) => String(value) && !!Number(value) },
+                inputSurname: { badValue: 'Введите фамилию', valid: (value) => String(value) && !!Number(value) },
+                inputMiddleName: { badValue: 'Введите отчество', valid: (value) => value && !!Number(value) },
+                inputDate: { badValue: 'Введите дату рождения', valid: (value) => value && Number(value) },
+                inputYearStudy: { badValue: 'Введите отчество', valid: (value) => Number(value) && !!String(value) },
+                inputFaculty: { badValue: 'Введите факультет', valid: (value) => String(value) && !!Number(value) },
+            };
+            const badElem = Object.entries(other).find(el => dictionary[el[0]].valid(el[1].value));
+
+            if (!badElem) {
                 let newStudent = {
                     name: formatString(newForm.inputName.value.trim()),
                     surname: formatString(newForm.inputSurname.value.trim()),
@@ -178,38 +182,14 @@
                     yearStudy: newForm.inputYearStudy.value.trim(),
                     faculty: formatString(newForm.inputFaculty.value.trim()),
                 };
-
                 studentsList.push(newStudent);
                 renderStudentsTable(studentsList);
 
-                newForm.inputName.value = '';
-                newForm.inputSurname.value = '';
-                newForm.inputMiddleName.value = '';
-                newForm.inputDate.value = '';
-                newForm.inputYearStudy.value = '';
-                newForm.inputFaculty.value = '';
-            } else {
-                switch (false) {
-                    case !!newForm.inputName.value:
-                        alert ('Введите имя');
-                        break;
-                    case !!newForm.inputSurname.value:
-                        alert ('Введите фамилию');
-                        break;
-                    case !!newForm.inputMiddleName.value:
-                        alert ('Введите отчество');
-                        break;
-                    case !!newForm.inputDate.valueAsDate:
-                        alert ('Введите дату рождения');
-                        break;
-                    case !!newForm.inputYearStudy.value || Number(newForm.inputYearStudy.value):
-                        alert ('Введите год начала обучения или проверьте значение');
-                        break;
-                    case !!newForm.inputFaculty.value:
-                        alert ('Введите факультет');
-                        break;
+                for (const key in other) {
+                    other[key] = '';
                 }
-            };
+                newForm = { ...newForm, ...other };
+            } else alert(dictionary[badElem[0]].badValue);
         });
     }
 

@@ -29,7 +29,7 @@
 
         thFullName.textContent = [studentObj.surname, studentObj.name, studentObj.middleName].join(' ');
         thFaculty.textContent = studentObj.faculty;
-        thDate.textContent = studentObj.date + ' (' + (new Date().getFullYear() - parseInt(studentObj.date.split('.')[2])) + ')';
+        thDate.textContent = `${studentObj.date} (${(new Date().getFullYear() - parseInt(studentObj.date.split('.')[2]))})`;
         if (new Date().getFullYear() - parseInt(studentObj.yearStudy) < 4) {
             thYearStudy.textContent = `${studentObj.yearStudy} (${new Date().getFullYear() - parseInt(studentObj.yearStudy) + 1} курс) `;
         } else {
@@ -146,14 +146,14 @@
     }
 
     function createSendingForm () { // создание формы для заполнения информации о студенте
-        let form = document.createElement('form');
-        let inputName = document.createElement('input');
-        let inputSurname = document.createElement('input');
-        let inputMiddleName = document.createElement('input');
-        let inputDate = document.createElement('input');
-        let inputYearStudy = document.createElement('input');
-        let inputFaculty = document.createElement('input');
-        let button = document.createElement('button');
+        const form = document.createElement('form');
+        const inputName = document.createElement('input');
+        const inputSurname = document.createElement('input');
+        const inputMiddleName = document.createElement('input');
+        const inputDate = document.createElement('input');
+        const inputYearStudy = document.createElement('input');
+        const inputFaculty = document.createElement('input');
+        const button = document.createElement('button');
 
         inputName.placeholder = 'Имя';
         inputSurname.placeholder = 'Фамилия';
@@ -252,13 +252,13 @@
         const responce = await fetch ('http://localhost:3000/students', {
             method: 'POST',
             body: JSON.stringify ({
-                "id": studentObj.id,
-                "name": studentObj.name,
-                "surname": studentObj.surname,
-                "middleName": studentObj.middleName,
-                "date": studentObj.date,
-                "yearStudy": studentObj.yearStudy,
-                "faculty": studentObj.faculty,
+                id: studentObj.id,
+                name: studentObj.name,
+                surname: studentObj.surname,
+                middleName: studentObj.middleName,
+                date: studentObj.date,
+                yearStudy: studentObj.yearStudy,
+                faculty: studentObj.faculty,
             }),
             headers: {
                 'Content-Type': 'application/json',
