@@ -12,9 +12,10 @@ export class Grid {
 
         this.groupedCellsByColumn = this.groupCellsByColumn();
         this.groupedCellsByReversedColumn = this.groupedCellsByColumn.map(column => [...column].reverse());
-        this.groupedCellsByRow = this.groupCellsByRow = this.groupCellsByRow();
+        this.groupedCellsByRow = this.groupCellsByRow();
         this.groupedCellsByReversedRow = this.groupedCellsByRow.map(row => [...row].reverse());
     }
+    
     getRandomEmptyCell() {
         const emptyCells = this.cells.filter(cell => cell.isEmpty());
         const randomIndex = Math.floor(Math.random() * emptyCells.length);

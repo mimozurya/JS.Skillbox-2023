@@ -1,4 +1,4 @@
- export class Cell {
+export class Cell {
 
     x = 0;
     y = 0;
