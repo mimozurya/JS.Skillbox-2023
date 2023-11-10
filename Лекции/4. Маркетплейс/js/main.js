@@ -22,14 +22,14 @@ const cart = {
         if (goodItem) {
             this.plusGood(id)
         } else {
-            const {id: idx, name, price} = allGoods.find(good => good.id === id);
-            this.cartGoods.push({id: idx, name, price, count: 1});
+            const { id: idx, name, price } = allGoods.find(good => good.id === id);
+            this.cartGoods.push({ id: idx, name, price, count: 1 });
             this.cartRender();
         }
     },
     cartRender() {
         cartTableGoods.textContent = '';
-        this.cartGoods.forEach(({name, id, price, count}) => {
+        this.cartGoods.forEach(({ name, id, price, count }) => {
             const trGood = document.createElement('tr');
             trGood.className = 'cart-item';
             trGood.dataset.id = id;
@@ -48,7 +48,7 @@ const cart = {
         cartTableTotal.textContent = `${totalPrice}\$`;
         cartCount.textContent = this.cartGoods.reduce((sum, item) => sum + item.count, 0);
     },
-    plusGood (id) {
+    plusGood(id) {
         const elem = this.cartGoods.find(el => el.id === id);
         if (elem) {
             elem.count++;
@@ -64,7 +64,7 @@ const cart = {
         }
         this.cartRender();
     },
-    deleteGood (id) {
+    deleteGood(id) {
         this.cartGoods = this.cartGoods.filter(el => el.id !== id);
         this.cartRender();
     }
@@ -73,8 +73,11 @@ const cart = {
 const buttonCart = document.querySelector('.button-cart');
 const modalCart = document.querySelector('#modal-cart');
 const cartTableGoods = document.querySelector('.cart-table__goods');
-const cartTableTotal = document.querySelector('.cart-table__total');
+const cartTableTotal = document.querySelector('.card-table__total');
 const cartCount = document.querySelector('.cart-count');
+const navigationItems = document.querySelectorAll('.navigation-link');
+const longGoodList = document.querySelector('.long-goods-list');
+const logoLink = document.querySelector('.logo-link');
 
 function scrollTop() { // мягкий скролл наверх страницы
     const scrollLinks = document.querySelectorAll('a.scroll-link');
@@ -96,7 +99,7 @@ cartTableGoods.addEventListener('click', (e) => {
     if (target.tagName === 'BUTTON') {
         const className = target.className;
         const id = target.dataset.id;
-        switch(className) {
+        switch (className) {
             case 'cart-btn-delete':
                 cart.deleteGood(id);
                 break;
@@ -110,13 +113,58 @@ cartTableGoods.addEventListener('click', (e) => {
     }
 })
 
+function renderCards(data) {
+    longGoodList.textContent = '';
+    const cards = data.map(good => createCard(good));
+    longGoodList.append(...cards);
+    document.body.classList.add('show-goods');
+}
+
+logoLink.addEventListener('click', () => {
+    if (document.body.classList.contains('show-goods')) {
+        document.body.classList.remove('show-goods');
+    }
+});
+
+function createCard(objCard) {
+    const card = document.createElement('div');
+    card.className = 'col-lg-3 col-sm-6';
+    card.innerHTML = `
+    <div class="goods-card">
+    ${objCard.label && `<span class="label">${objCard.label}</span>`}
+    <img src="db/${objCard.img}" alt="${objCard.name}" class="goods-image">
+    <h3 class="goods-title">${objCard.name}</h3>
+    <p class="goods-description">${objCard.description}</p>
+    <button class="button goods-card-btn add-to-cart" data-id="${objCard.id}"><span class="button-price">${objCard.price}$</span></button>
+    </div>
+    `;
+    return card;
+}
+
+function filterCards(field, value) {
+    renderCards(allGoods.filter(good => good[field] === value))
+}
+
+navigationItems.forEach((link) => {
+    link.addEventListener('click', (e) => {
+        const field = link.dataset.field;
+        if (field) {
+            const value = link.textContent;
+            filterCards(field, value);
+            return;
+        }
+        renderCards(allGoods);
+    })
+})
+
 buttonCart.addEventListener('click', () => {
     // cart.renderCart();
     modalCart.classList.add('show');
 })
 
 document.addEventListener('mouseup', (e) => { // если кликнули за пределы формы
-    if (!e.target.closest('.modal')) {
+    const target = e.target;
+    if (!target.closest('.modal') || target.classList.contains('modal-close')) {
         if (modalCart.classList.contains('show')) {
             modalCart.classList.remove('show');
         }
