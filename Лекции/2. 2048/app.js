@@ -7,10 +7,10 @@ const grid = new Grid(gameBoard);
 
 grid.getRandomEmptyCell().linkTile(new Tile(gameBoard));
 
-document.addEventListener('keydown', handleInput);
+document.addEventListener('keydown', handleInput); // keyDown - событие "кнопка нажата"
 
 function handleInput(event) {
-    switch(event.key) {
+    switch (event.key) {
         case 'ArrowUp':
             if (!canMove(grid.groupedCellsByColumn)) return;
             moveUp();
@@ -34,16 +34,14 @@ function handleInput(event) {
     const newTile = new Tile(gameBoard);
     grid.getRandomEmptyCell().linkTile(newTile);
 
-    if (grid.cells.some(cell => !cell.isEmpty() && cell.linkedTile.value === 2048)) {
+    if (grid.cells.some(cell => !cell.isEmpty && cell.linkedTile.value === 2048)) {
         alert('Победа');
-        document.removeEventListener('keydown', handleInput);
-        return;
+            document.removeEventListener('keydown', handleInput);
+            return;
     }
 
-    if (!(canMove(grid.groupedCellsByRow) ||
-        canMove(grid.groupedCellsByReversedColumn) ||
-        canMove(grid.groupedCellsByRow) ||
-        canMove(grid.groupedCellsByReversedRow))) {
+    if (!(canMove(grid.groupedCellsByColumn) || canMove(grid.groupedCellsByReversedColumn) || canMove(grid.
+        groupedCellsByRow) || canMove(grid.groupedCellsByReversedRow))) {
             alert('Поражение');
             document.removeEventListener('keydown', handleInput);
             return;
@@ -53,7 +51,6 @@ function handleInput(event) {
 function moveUp() {
     slideTiles(grid.groupedCellsByColumn);
 }
-
 
 function moveDown() {
     slideTiles(grid.groupedCellsByReversedColumn);
@@ -67,12 +64,12 @@ function moveRight() {
     slideTiles(grid.groupedCellsByReversedRow);
 }
 
-function slideTiles (groupedCells) {
+function slideTiles(groupedCells) {
     groupedCells.forEach(group => slideTilesInGroup(group));
     grid.cells.forEach(cell => cell.linkedTileForMerge && cell.mergeTiles());
 }
 
-function slideTilesInGroup (group) {
+function slideTilesInGroup(group) {
     for (let i = 1; i < group.length; i++) {
         if (group[i].isEmpty()) {
             continue;
@@ -80,7 +77,7 @@ function slideTilesInGroup (group) {
 
         const cellWithTile = group[i];
         let targetCell;
-        let j = i-1;
+        let j = i - 1;
 
         while (j >= 0 && group[j].canAccept(cellWithTile.linkedTile)) {
             targetCell = group[j];
@@ -101,7 +98,7 @@ function slideTilesInGroup (group) {
     }
 }
 
-function canMove (groupedCells) {
+function canMove(groupedCells) {
     return groupedCells.some(group => canMoveInGroup(group));
 }
 
@@ -109,7 +106,7 @@ function canMoveInGroup(group) {
     return group.some((cell, index) => {
         if (!index) return false;
         if (cell.isEmpty()) return false;
-        const targetCell = group[index-1];
+        const targetCell = group[index - 1];
         return targetCell.canAccept(cell.linkedTile);
-    });
+    })
 }

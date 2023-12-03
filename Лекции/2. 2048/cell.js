@@ -12,7 +12,7 @@ export class Cell {
         this.y = y;
     }
 
-    linkTile (tile) {
+    linkTile(tile) {
         tile.setXY(this.x, this.y);
         this.linkedTile = tile;
     }
@@ -21,17 +21,17 @@ export class Cell {
         return !this.linkedTile;
     }
 
-    unlinkTile () {
+    unlinkTile() {
         this.linkedTile = null;
     }
 
-    linkTileForMerge (tile) {
+    linkTileForMerge(tile) {
         tile.setXY(this.x, this.y);
         this.linkedTileForMerge = tile;
     }
 
-    canAccept (newTile) {
-        return this.isEmpty() || (!this.linkTileForMerge && this.linkedTile.value === newTile.value);
+    canAccept(newTile) {
+        return this.isEmpty() || (!this.linkedTileForMerge && this.linkedTile.value === newTile.value);
     }
 
     mergeTiles() {
